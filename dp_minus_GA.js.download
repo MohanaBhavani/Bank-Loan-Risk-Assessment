@@ -1,0 +1,110 @@
+// Last Updated 2023-12-01
+// G. Parker
+// Update to Design Tools
+
+// 2020-07-30 added the line below to comment out/remove BBB/Conferences option
+$("#section-tabs .conferences").parent().remove();
+
+// Google Analytics //
+// Google Tag Manager 
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KVJ82R7');
+// The following line is for test //
+//})(window,document,'script','dataLayer','GTM-W8SMNKM');//
+// End Google Tag Manager 
+
+//New GA 3.2.20s3//
+//G-54KY22E2DL//
+function loadJS(FILE_URL, async = true) {
+  let scriptEle = document.createElement("script");
+  scriptEle.setAttribute("src", FILE_URL);
+  scriptEle.setAttribute("type", "text/javascript");
+  scriptEle.setAttribute("async", async);
+  document.body.appendChild(scriptEle);
+  // success event 
+  scriptEle.addEventListener("load", () => {
+    console.log("File loaded")
+  });
+   // error event
+  scriptEle.addEventListener("error", (ev) => {
+    console.log("Error on loading file", ev);
+  });
+}
+loadJS("https://www.googletagmanager.com/gtag/js?id=G-54KY22E2DL", true);
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date()); gtag('config', 'G-54KY22E2DL');
+//New GA 3.2.2023//
+
+
+////////////////////////////////////////////////////
+// DESIGNPLUS CONFIG                            //
+////////////////////////////////////////////////////
+// Legacy
+var DT_variables = {
+         iframeID: '',
+        // Path to the hosted USU Design Tools
+        path: 'https://designtools.ciditools.com/',
+        templateCourse: '1504538',
+        // OPTIONAL: Button will be hidden from view until launched using shortcut keys
+        hideButton: true,
+    	 // OPTIONAL: Limit by course format
+	     limitByFormat: false, // Change to true to limit by format
+	     // adjust the formats as needed. Format must be set for the course and in this array for tools to load
+	     formatArray: [
+            'online',
+            'on-campus',
+            'blended'
+        ],
+        // OPTIONAL: Limit tools loading by users role
+        limitByRole: false, // set to true to limit to roles in the roleArray
+        // adjust roles as needed
+        roleArray: [
+            'student',
+            'teacher',
+            'admin'
+        ],
+        // OPTIONAL: Limit tools to an array of Canvas user IDs
+        limitByUser: false, // Change to true to limit by user
+        // add users to array (Canvas user ID not SIS user ID)
+        userArray: [
+            '1234',
+            '987654'
+        ]
+};
+
+// New
+DpPrimary = {
+    lms: 'canvas',
+    templateCourse: '1910488',
+    hideButton: true,
+    hideLti: false,
+    extendedCourse: '', // added in sub-account theme
+    sharedCourse: '', // added from localStorage
+    courseFormats: [],
+    canvasRoles: [],
+    canvasUsers: [],
+    canvasCourseIds: [],
+    plugins: [],
+    excludedModules: [],
+    includedModules: [],
+    lang: 'en',
+    defaultToLegacy: false,
+    enableVersionSwitching: true,
+    hideSwitching: false,
+}
+
+// merge with extended/shared customizations config
+DpConfig = { ...DpPrimary, ...(window.DpConfig ?? {}) }
+
+$(function () {
+    const uriPrefix = (location.href.includes('.beta.')) ? 'beta.' : '';
+    const toolsUri = (DpConfig.toolsUri) ? DpConfig.toolsUri : `https://${uriPrefix}designplus.ciditools.com/`;
+    $.getScript(`${toolsUri}js/controller.js`);
+});
+////////////////////////////////////////////////////
+// END DESIGNPLUS CONFIG                        //
+////////////////////////////////////////////////////
